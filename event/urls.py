@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
   path('home/', views.home, name="Home"),
   path('', views.login, name="Login"),
+  path('add_event/', views.add_event, name="Add_event"),
 ]
 
 if settings.DEBUG:

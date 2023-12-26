@@ -5,3 +5,6 @@ def home(request):
 
 def login(request):
   return render(request, 'credential/login.html')
+
+def add_event(request):
+  return render(request, 'core/add_event.html')
