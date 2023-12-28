@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from . models import *
 
 def home(request):
-  return render(request, 'core/home.html')
+  events=Event.objects.all()
+  return render(request, 'core/home.html',{'events':events})
 
 def login(request):
   return render(request, 'credential/login.html')
@@ -18,6 +20,12 @@ def add_event(request):
     contact_number=request.POST.get("contact")
     time=request.POST.get("time")
     venue=request.POST.get("venue")
-    Event.objects.create(event_name=event_name,instruction=instruction,category=category,date=date,mode=mode,registration_fee=registration_fee,prize_amount=prize_amount,contact_number=contact_number,duration=duration,venue=venue)
-    
+    Event.objects.create(event_name=event_name,instruction=instruction,category=category,date=date,mode=mode,registration_fee=registration_fee,prize_amount=prize_amount,contact_number=contact_number,time=time,venue=venue)
+
   return render(request, 'core/add_event.html')
+
+
+def event_description(request,no):
+  # events=Event.objects.all()
+  event=Event.objects.get(id=no)
+  return render(request,"core/event_description.html",{"event":event})

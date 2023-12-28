@@ -5,7 +5,7 @@
   <div class="lg:mx-32 md:mx-24 sm:mx-12 bg-white p-4 mb-12 rounded-md">
     <div class="grid grid-cols-6 ml-12">
       <div class="col-span-5">
-        <input type="text" placeholder="   Enter the Event name here..." class="w-full rounded outline outline-offset-2 outline-[#8326e1] mt-2">
+        <input type="text" placeholder=" Enter the Event name here..." class="w-full rounded outline outline-[#8326e1] mt-2 p-2" >
       </div>
       <div>
           <button class="ml-6 p-2 rounded  bg-[#8336e1] text-white ">Search</button>
@@ -15,19 +15,19 @@
 
   <!-- present events -->
   <hr>
+  {% for i in events %}
   <div class="grid grid-cols-6 p-4 gap-2">
       <div class="col-span-2">
         <!-- 110*55 -->
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm8p2B_fwYeCFZW-MQMKvndVE8XacD9rQhWg&usqp=CAU" alt="loading"> 
       </div>
-
       <div class="col-span-2">
         <div class="grid grid-rows-3 mt-2">
           <div>
-              Event Name
+              {{i.event_name}}
           </div>
           <div>
-              Description
+              {{i.description}}
           </div>
         </div>
       </div>
@@ -36,36 +36,13 @@
         <button>Hii</button>
       </div>
 
-      <div class="mt-12">
-        <button>View Details</button>
+      <div class="mt-12 ">
+        <a href="{% url 'event' i.id %}" class="bg-purple-500 p-2 rounded-md text-white">View Details</a>
       </div>
   </div>
   <hr>
-  <div class="grid grid-cols-6 mt-2 p-4 gap-2">
-    <div class="col-span-2">
-      <!-- 110*55 -->
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm8p2B_fwYeCFZW-MQMKvndVE8XacD9rQhWg&usqp=CAU" alt="loading"> 
-    </div>
-
-    <div class="col-span-2 mt-2">
-      <div class="grid grid-rows-3">
-        <div>
-            Event Name
-        </div>
-        <div>
-            Description
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-12">
-      <button>Hii</button>
-    </div>
-
-    <div class="mt-12">
-      <button>View Details</button>
-    </div>
-</div>
+  {% endfor %}
+  {% comment %} upcoming events {% endcomment %}
 <hr>
 </div>
 <div class="flex justify-center">
