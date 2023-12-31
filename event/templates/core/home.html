@@ -5,10 +5,10 @@
   <div class="lg:mx-32 md:mx-24 sm:mx-12 bg-white p-4 mb-12 rounded-md">
     <div class="grid grid-cols-6 ml-12">
       <div class="col-span-5">
-        <input type="text" placeholder=" Enter the Event name here..." class="w-full rounded outline outline-[#8326e1] mt-2 p-2" >
+        <input type="text" placeholder=" Enter the Event name here..." class="w-full rounded outline outline-[#2C4C93] p-2" >
       </div>
       <div>
-          <button class="ml-6 p-2 rounded  bg-[#8336e1] text-white ">Search</button>
+          <button class="ml-6 px-3 py-2 rounded  bg-[#2C4C93] text-white ">Search</button>
       </div>
     </div>
   </div>
@@ -16,31 +16,38 @@
   <!-- present events -->
   <hr>
   {% for i in events %}
+  <div class="mx-20 my-10 p-5 bg-white rounded-2xl shadow-lg">
   <div class="grid grid-cols-6 p-4 gap-2">
       <div class="col-span-2">
-        <!-- 110*55 -->
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm8p2B_fwYeCFZW-MQMKvndVE8XacD9rQhWg&usqp=CAU" alt="loading"> 
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR19atjyBz5Vde8eoUS4wkKiNUCL3d_EPZ7cg&usqp=CAU" alt="loading"> 
       </div>
-      <div class="col-span-2">
+      <div class="col-span-2 mt-4">
         <div class="grid grid-rows-3 mt-2">
           <div>
               {{i.event_name}}
           </div>
           <div>
-              {{i.description}}
+            PRIZE AMOUNT : &#8377;{{i.prize_amount}}
+        </div>
+          <div>
+              DATE : {{i.date}}
           </div>
+          <div>
+            TIME: {{i.time}}
+        </div>
         </div>
       </div>
 
-      <div class="mt-12">
+      {% comment %} <div class="mt-12">
         <button>Hii</button>
-      </div>
+      </div> {% endcomment %}
 
       <div class="mt-12 ">
-        <a href="{% url 'event' i.id %}" class="bg-purple-500 p-2 rounded-md text-white">View Details</a>
+        <a href="{% url 'event' i.id %}" class="bg-[#2C4C93] p-2 rounded-md text-white">View Details</a>
       </div>
   </div>
-  <hr>
+
+</div>
   {% endfor %}
   {% comment %} upcoming events {% endcomment %}
 <hr>
@@ -54,28 +61,18 @@
   <div class="grid grid-cols-6 p-4 gap-2">
       <div class="col-span-2">
         <!-- 110*55 -->
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm8p2B_fwYeCFZW-MQMKvndVE8XacD9rQhWg&usqp=CAU" alt="loading"> 
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR19atjyBz5Vde8eoUS4wkKiNUCL3d_EPZ7cg&usqp=CAU" alt="loading"> 
       </div>
 
-      <div class="col-span-2">
-        <div class="grid grid-rows-3">
-          <div>
-              Event Name
-          </div>
-          <div>
-              Description
-          </div>
+      <div class="col-span-2 mt-4">
+        <div class="grid grid-rows-3 mt-2">
+          <div>Event Name</div>
+          <div>Loading ...</div>
         </div>
       </div>
-
-      <div>
-        <button>Hii</button>
+      <div class="mt-12 ">
+        <a class="bg-[#2C4C93] p-2 rounded-md text-white">COMING SOON...</a>
       </div>
-
-      <div>
-        <button>View Details</button>
-      </div>
-  </div>
-  <hr>
+    </div>
 </div>
 {% endblock %}

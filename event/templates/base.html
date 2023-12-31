@@ -10,9 +10,9 @@
 </head>
 <body>
   <!-- navbar -->
-  <div class="navbar bg-[#8336e1] text-white fixed-top">
+  <div class="navbar bg-[#2C4C93] text-white fixed-top">
     <div class="flex-none">
-        <img src="{% static 'images/image.png' %}" alt="loading" height="75" width="60" class="fill-white">
+        <img src="https://college4u.in/wp-content/uploads/2018/03/ktc00.png" alt="loading" height="75" width="75" class="fill-white">
     </div>
     <div class="flex-1">
       <a class="btn btn-ghost text-2xl">Event Management</a>
@@ -20,11 +20,14 @@
     <div class="flex-none">
       <a href="#" class="text-md font-bold  mr-4 ">Profile</a>
     </div>
+    {% if request.user.is_authenticated%}
     <div class="flex-none">
-      <a class=" text-md font-bold  mr-4" href="">
-        Login
+      <a class=" text-md font-bold  mr-4" href="{% url 'logout'%}">
+        Logout
       </a>
     </div>
+    {% endif %}
+    
     <div class="flex-none">
       <button class="btn btn-square btn-ghost text-xl">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-7 stroke-current text-white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -39,7 +42,7 @@
   {% endblock %}
 
   <!-- footer -->
-  <footer class="footer footer-center p-4 bg-[#6b2fdf] text-base-content text-white fixed-bottom">
+  <footer class="footer footer-center p-4 bg-[#2C4C93] text-white fixed-bottom">
     <aside>
       <p>Copyright © 2023 - All rights reserved by Kumaraguru School of Innovation.</p>
     </aside>

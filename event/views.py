@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,auth
 from django.shortcuts import render ,redirect
 from . models import *
+from django.contrib.auth import logout
 
 
 def login(request):
@@ -14,17 +15,18 @@ def login(request):
       print(user)
       if user is not None:
           auth.login(request,user)
-          return render(request, 'core/home.html')
+          return redirect('Home')
       else:
-          return redirect('Login')
+          return redirect('login')
   return render(request, 'credential/login.html')
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def home(request):
   events=Event.objects.all()
+  print(events)
   return render(request, 'core/home.html',{'events':events})
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def add_event(request):
   if request.method =="POST":
     event_name=request.POST.get("event_name")
@@ -41,8 +43,13 @@ def add_event(request):
 
   return render(request, 'core/add_event.html')
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def event_description(request,no):
   # events=Event.objects.all()
   event=Event.objects.get(id=no)
   return render(request,"core/event_description.html",{"event":event})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect("/")
