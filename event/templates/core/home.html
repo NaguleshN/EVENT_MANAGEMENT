@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block base %}
-<div class="m-10 p-5 bg-base-100 rounded-xl">
+<div class="m-10 p-5 bg-base-100 outline outline-[#222831] shadow-lg  rounded-xl">
   <div class="lg:mx-32 md:mx-24 sm:mx-12 bg-white p-4 mb-12 rounded-md">
     <div class="grid grid-cols-6 ml-12">
       <div class="col-span-5">
@@ -14,10 +14,9 @@
   </div>
 
   <!-- present events -->
-  <hr>
   {% for i in events %}
   <div class="mx-20 my-10 p-5 bg-white rounded-2xl shadow-lg">
-  <div class="grid grid-cols-6 p-4 gap-2">
+  <div class="grid grid-cols-5 p-4 gap-2">
       <div class="col-span-2">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR19atjyBz5Vde8eoUS4wkKiNUCL3d_EPZ7cg&usqp=CAU" alt="loading"> 
       </div>
@@ -50,13 +49,13 @@
 </div>
   {% endfor %}
   {% comment %} upcoming events {% endcomment %}
-<hr>
+
 </div>
 <div class="flex justify-center">
   <p class="font-semibold text-2xl ">Upcoming Events</p>
 </div>
 <!-- upcoming events. -->
-<div class="mx-20 my-10 p-5 bg-white rounded-xl shadow-lg">
+<div class="mx-20 my-10 p-5 bg-white rounded-xl shadow-lg outline outline-offset-2 outline-[#222831]">
   <hr>
   <div class="grid grid-cols-6 p-4 gap-2">
       <div class="col-span-2">

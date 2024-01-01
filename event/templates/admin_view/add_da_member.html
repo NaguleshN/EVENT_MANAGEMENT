@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <!-- navbar -->
+    <div class="p-4 bg-white rounded-t-xl mt-1">
+      <div class="flex justify-between">
+          <div class="ml-4 grid grid-cols-3 gap-6 text-lg">
+            <div class="font-semibold text-gray-600">Event Management</div>
+            <div class="text-gray-400">+1234567890</div>
+            <div class="text-gray-400">Kct@gmail.com</div>
+          </div>
+
+          <div class="grid grid-cols-2 mr-4 gap-6 text-lg ">
+            {% for group in request.user.groups.all %}
+            {% if group.name == 'admin' %}
+              <p><a class="nav-link active text-gray-600 font-semibold" href="{% url 'admin' %}">Admin</a></p> 
+            {% endif %}
+            {% if group.name == 'da' %}
+              <p> <a class="nav-link active text-gray-600 font-semibold" href="{% url 'Add_event' %}">Da Portal</a></p>
+            {% endif %}
+            {% endfor %}
+            <div class="flex-none">
+              <a class=" text-md text-gray-500 font-semibold  mr-4" href="{% url 'logout' %}">
+                Logout
+              </a>
+            </div>
+      </div>
+    </div>
+  <!-- End of the navbar -->
+
+  <!-- Main content -->
+    <div class="grid grid-cols-5">
+      <div class="col-span-1">
+        <div class="bg-white py-8 px-6">
+           
+          <div class="p-6 rounded-xl shadow-md">
+            <div class="text-gray-500 font-semibold text-2xl">Menu</div>
+            <div class="text-gray-600 font-semibold text-lg mt-2"><a href="{% url 'index' %}">Home</a></div>
+            <div class="text-gray-600 font-semibold text-lg mt-2"><a href="{% url 'admin' %}">Weekly Events</a></div>
+            <div class="text-gray-600 font-semibold text-lg mt-2"><a href="{% url 'accepted_event' %}">Approved Events</a></div>
+            <div class="text-gray-600 font-semibold text-lg mt-2">Add Da member</div>
+          </div>
+
+          <div class="p-6 rounded-xl shadow-md">
+              <div class="text-gray-500 font-semibold text-xl">Your Profile</div>
+              <div class="mt-2">
+                <p class="text-gray-600 font-semibold">Name :</p> {{ user.username }}
+              </div>
+              <div class="mt-2 ">
+                <p class="text-gray-600 font-semibold">E-mail :</p> {{ user.email }}
+              </div>
+          </div>
+
+          <div class="p-6 rounded-xl shadow-md">
+            <div>
+              <form>
+                <label for="date">Current Date:</label>
+                <input type="text" id="date" name="date">
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-span-4 py-8 px-6 ">
+        <div class="bg-gray-100 rounded-t-xl">
+          <div class="p-6 flex jusity-evenly gap-10">
+            <div class="text-black ml-5"><a href="{% url 'admin' %}">Weekly Events</a></div>
+            <div class="text-black" ><a href="{% url 'accepted_event' %}">Accepted Events</a></div>
+            <div class="text-[#FFB000] underline underline-offset-8"><a href="{% url 'add_da_member' %}">Add Da Member</a></div>
+          </div>          
+        </div>
+      
+        <div class="bg-gray-100 rounded-b-xl shadow-md">
+          <div class="py-4 px-10">
+            <div>
+              
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- End of main content -->
+
+  <!-- footer -->
+  <div class="footer flex justify-center">
+    <div class="text-gray-600 font-semibold">@Copyright.2024 Kumaraguru College of Technology.</div>
+  </div>
+  <!-- End of footer -->
+
+
+  <script> 
+    document.getElementById('eventSearch').addEventListener('keyup', function() {
+      const searchTerm = this.value.toLowerCase();
+  
+      // Select all the event containers
+      const eventContainers = document.querySelectorAll('.grid-cols-3 a');
+  
+      // Loop through each event container and check for the event name
+      eventContainers.forEach(container => {
+        const eventName = container.querySelector('h4').textContent.toLowerCase();
+        const displayStyle = eventName.includes(searchTerm) ? 'block' : 'none';
+        container.style.display = displayStyle;
+      });
+    });
+    var today = new Date();
+    var yyyy = today.getFullYear();
+    var mm = today.getMonth() + 1;
+    var dd = today.getDate();
+    if (mm < 10) {
+    mm = '0' + mm;
+    }
+    if (dd < 10) {
+    dd = '0' + dd;
+    }
+    var formattedDate = yyyy + '-' + mm + '-' + dd; 
+    document.getElementById('date').value = formattedDate;
+    
+    </script>
+</body>
+</html>

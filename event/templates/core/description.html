@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <!-- navbar -->
+    <div class="p-4 bg-white rounded-t-xl mt-1">
+      <div class="flex justify-between">
+          <div class="ml-4 grid grid-cols-3 gap-6 text-lg">
+            <div class="font-semibold text-gray-600">Event Management</div>
+            <div class="text-gray-400">+1234567890</div>
+            <div class="text-gray-400">Kct@gmail.com</div>
+          </div>
+
+          <div class="grid grid-cols-2 mr-4 gap-6 text-lg ">
+            {% for group in request.user.groups.all %}
+            {% if group.name == 'admin' %}
+              <p><a class="nav-link active text-gray-600 font-semibold" href="{% url 'admin' %}">Admin</a></p> 
+            {% endif %}
+            {% if group.name == 'da' %}
+              <p> <a class="nav-link active text-gray-600 font-semibold" href="{% url 'Add_event' %}">Da Portal</a></p>
+            {% endif %}
+            {% endfor %}
+            <div class="flex-none">
+              <a class=" text-md text-gray-500 font-semibold  mr-4" href="{% url 'logout' %}">
+                Logout
+              </a>
+            </div>
+      </div>
+    </div>
+  <!-- End of the navbar -->
+
+  <!-- Main content -->
+    <div class="grid grid-cols-5">
+      <div class="col-span-1">
+        <div class="bg-white py-8 px-6">
+
+          <div class="p-6 rounded-xl shadow-md">
+            <div class="text-gray-500 font-semibold text-2xl">Menu</div>
+            <div class="text-gray-600 font-semibold text-lg mt-2"><a href="{% url 'index' %}">Home</a></div>
+          </div>
+
+
+          <div class="p-6 rounded-xl shadow-md">
+              <div class="text-gray-500 font-semibold text-xl">Your Profile</div>
+              <div class="mt-2">
+                <p class="text-gray-600 font-semibold">Name :</p> {{ user.username }}
+              </div>
+              <div class="mt-2 ">
+                <p class="text-gray-600 font-semibold">E-mail :</p> {{ user.email }}
+              </div>
+          </div>
+
+          
+
+          <div class="p-6 rounded-xl shadow-md">
+            <div>
+              <form>
+                <label for="date">Current Date:</label>
+                <input type="text" id="date" name="date">
+                </form>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+
+      <div class="col-span-4 py-8 px-6 ">
+        <div class="bg-gray-200 rounded-t-xl">
+          <div class="p-6 flex jusity-evenly gap-10">
+            <div class="text-2xl font-semibold text-gray-600">{{event.event_name}}</div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 bg-gray-100 rounded-b-lg">
+            <div class="py-8 px-5">
+              <p class="text-lg text-gray-800 mb-6">Instructions : <span class="text-gray-500">{{event.instruction}}</span></p>
+              <p class=" text-lg text-gray-800  mb-2 ">  Mode  : <span class="text-gray-500">{{event.mode}} </span></p><br>
+              <p class="text-lg text-gray-800  mb-2 ">  Category  :  <span class="text-gray-500">{{event.category}}</span></p><br>
+              <p class=" text-lg text-gray-800  mb-2 ">  Registration fees  : <span class="text-gray-500">{{event.registration_fee}}</span></p><br>
+              <p class=" text-lg text-gray-800  mb-2 ">  Prize amount  : <span class="text-gray-500">{{event.prize_amount}}</span></p><br>
+              
+              <p class="text-lg text-gray-800  mb-2 ">  Date  : <span class="text-gray-500">{{event.date}}</span></p><br>
+              <p class="text-lg text-gray-800  mb-2"> Time  : <span class="text-gray-500">{{event.time}}</span> </p><br>
+              <p class="text-lg text-gray-800  mb-5 ">  Venue  : <span class="text-gray-500">{{event.venue}}</span> </p>
+              <p class="text-lg text-gray-800  mb-2 ">  Contact number  : <span class="text-gray-500">{{event.contact_number}}</span></p><br>
+              <button type="submit" class="p-2 rounded-lg bg-[#8ACDD7] text-gray-800">Register</button>
+            </div>
+
+            <!-- <div>
+              <div class="pt-28 pl-8 rounded-lg">  <img src="https://th.bing.com/th/id/OIP.F34U7VjZ-4pIIUPTRRST6AAAAA?w=267&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="loading"></div>
+            
+            </div> -->
+        </div>
+      </div>
+    </div>
+
+</body>
+
+
+<!-- footer -->
+<div class="footer flex justify-center">
+  <div class="text-gray-600 font-semibold">@Copyright.2024 Kumaraguru College of Technology.</div>
+</div>
+<!-- End of footer -->
+<script>  
+  var today = new Date();
+  var yyyy = today.getFullYear();
+  var mm = today.getMonth() + 1;
+  var dd = today.getDate();
+  if (mm < 10) {
+  mm = '0' + mm;
+  }
+  if (dd < 10) {
+  dd = '0' + dd;
+  }
+  var formattedDate = yyyy + '-' + mm + '-' + dd; 
+  document.getElementById('date').value = formattedDate;
+  
+  </script>
+</body>
+</html>

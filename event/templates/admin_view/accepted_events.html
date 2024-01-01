@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <!-- navbar -->
+    <div class="p-4 bg-white rounded-t-xl mt-1">
+      <div class="flex justify-between">
+          <div class="ml-4 grid grid-cols-3 gap-6 text-lg">
+            <div class="font-semibold text-gray-600">Event Management</div>
+            <div class="text-gray-400">+1234567890</div>
+            <div class="text-gray-400">Kct@gmail.com</div>
+          </div>
+
+          <div class="grid grid-cols-2 mr-4 gap-6 text-lg ">
+            {% for group in request.user.groups.all %}
+            {% if group.name == 'admin' %}
+              <p><a class="nav-link active text-gray-600 font-semibold" href="{% url 'admin' %}">Admin</a></p> 
+            {% endif %}
+            {% if group.name == 'da' %}
+              <p> <a class="nav-link active text-gray-600 font-semibold" href="{% url 'Add_event' %}">Da Portal</a></p>
+            {% endif %}
+            {% endfor %}
+            <div class="flex-none">
+              <a class=" text-md text-gray-500 font-semibold  mr-4" href="{% url 'logout' %}">
+                Logout
+              </a>
+            </div>
+      </div>
+    </div>
+  <!-- End of the navbar -->
+
+  <!-- Main content -->
+    <div class="grid grid-cols-5">
+      <div class="col-span-1">
+        <div class="bg-white py-8 px-6">
+          <div class="p-6 rounded-xl shadow-md">
+            <div class="text-gray-500 font-semibold text-2xl">Menu</div>
+            <div class="text-gray-600 font-semibold text-lg mt-2"><a href="{% url 'index' %}">Home</a></div>
+            <div class="text-gray-600 font-semibold text-lg mt-2"><a href="{% url 'admin' %}">Weekly Events</a></div>
+            <div class="text-gray-600 font-semibold text-lg mt-2"><a href="{% url 'accepted_event' %}">Approved Events</a></div>
+            <div class="text-gray-600 font-semibold text-lg mt-2"><a href="{% url 'add_da_member' %}">Add Da Member</a></div>
+          </div>
+          <div class="p-6 rounded-xl shadow-md">
+              <div class="text-gray-500 font-semibold text-xl">Your Profile</div>
+              <div class="mt-2">
+                <p class="text-gray-600 font-semibold">Name :</p> {{ user.username }}
+              </div>
+              <div class="mt-2 ">
+                <p class="text-gray-600 font-semibold">E-mail :</p> {{ user.email }}
+              </div>
+          </div>
+
+          <div class="p-6 rounded-xl shadow-md">
+            <div>
+              <form>
+                <label for="date">Current Date:</label>
+                <input type="text" id="date" name="date">
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-span-4 py-8 px-6 ">
+        <div class="bg-gray-100 rounded-t-xl">
+          <div class="p-6 flex jusity-evenly gap-10">
+            <div class="text-black ml-5"><a href="{% url 'admin' %}">Weekly Events</a></div>
+            <div class="text-[#FFB000] underline underline-offset-8" ><a href="{% url 'accepted_event' %}">Accepted Events</a></div>
+            <div class="text-black" ><a href="{% url 'add_da_member' %}">Add Da Member</a></div>
+          </div>
+
+         
+
+          <div class="lg:mx-32  p-4  rounded-md ">
+            <div class="grid grid-cols-6 ml-12">
+              <div class="col-span-5">
+                <input type="text" placeholder="Enter the Event name here..." class="w-full rounded p-2 shadow-md" id="eventSearch">
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      
+        <div class="bg-gray-100 rounded-b-xl shadow-md">
+          <div class="py-4 px-10">
+            <div class="grid grid-cols-3 gap-4 grid-flow-row-dense mt-2">
+              {% for i in events %}
+                {% if i.status == "accepted" %}
+              <a href="{% url 'description' i.id %}">
+                <div class="rounded-xl shadow-lg p-4 transition delay-150 duration-300 ease-in-out hover:-translate-y-4 bg-white">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR19atjyBz5Vde8eoUS4wkKiNUCL3d_EPZ7cg&usqp=CAU" alt="" class="rounded-xl">
+                  <div class="rounded-xl p-2 col-end">
+                    <h4 class="mb-4">{{i.event_name}}</h4> 
+                    <p class="text-gray-700">
+                      <p>PRIZE AMOUNT : &#8377;{{i.prize_amount}}</p>
+                      <p>DATE : {{i.date}}</p>
+                      <p>TIME: {{i.time}}</p>
+                      <div class="flex justify-end mt-4">
+                        <form action="{% url 'reject_order' i.pk %}" method="post">
+                          {% csrf_token %}
+                          <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600">Reject</button>
+                        </form>
+                      </div>
+                  </div>
+                </div>
+              </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- End of main content -->
+
+  <!-- footer -->
+  <div class="footer flex justify-center">
+    <div class="text-gray-600 font-semibold">@Copyright.2024 Kumaraguru College of Technology.</div>
+  </div>
+  <!-- End of footer -->
+
+
+  <script> 
+    document.getElementById('eventSearch').addEventListener('keyup', function() {
+      const searchTerm = this.value.toLowerCase();
+  
+      // Select all the event containers
+      const eventContainers = document.querySelectorAll('.grid-cols-3 a');
+  
+      // Loop through each event container and check for the event name
+      eventContainers.forEach(container => {
+        const eventName = container.querySelector('h4').textContent.toLowerCase();
+        const displayStyle = eventName.includes(searchTerm) ? 'block' : 'none';
+        container.style.display = displayStyle;
+      });
+    });
+    var today = new Date();
+    var yyyy = today.getFullYear();
+    var mm = today.getMonth() + 1;
+    var dd = today.getDate();
+    if (mm < 10) {
+    mm = '0' + mm;
+    }
+    if (dd < 10) {
+    dd = '0' + dd;
+    }
+    var formattedDate = yyyy + '-' + mm + '-' + dd; 
+    document.getElementById('date').value = formattedDate;
+    
+    </script>
+</body>
+</html>

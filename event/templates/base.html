@@ -10,7 +10,7 @@
 </head>
 <body>
   <!-- navbar -->
-  <div class="navbar bg-[#2C4C93] text-white fixed-top">
+  <div class="navbar bg-white text-[#2C4C93] fixed-top">
     <div class="flex-none">
         <img src="https://college4u.in/wp-content/uploads/2018/03/ktc00.png" alt="loading" height="75" width="75" class="fill-white">
     </div>
@@ -22,7 +22,7 @@
     </div>
     {% if request.user.is_authenticated%}
     <div class="flex-none">
-      <a class=" text-md font-bold  mr-4" href="{% url 'logout'%}">
+      <a class=" text-md font-bold  mr-4" href="{% url 'logout' %}">
         Logout
       </a>
     </div>
@@ -42,7 +42,7 @@
   {% endblock %}
 
   <!-- footer -->
-  <footer class="footer footer-center p-4 bg-[#2C4C93] text-white fixed-bottom">
+  <footer class="footer footer-center p-4 bg-white text-[#2C4C93]  fixed-bottom">
     <aside>
       <p>Copyright © 2023 - All rights reserved by Kumaraguru School of Innovation.</p>
     </aside>
