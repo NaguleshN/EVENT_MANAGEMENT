@@ -12,8 +12,8 @@
       <div class="flex justify-between">
           <div class="ml-4 grid grid-cols-3 gap-6 text-lg">
             <div class="font-semibold text-gray-600">Event Management</div>
-            <div class="text-gray-400">+1234567890</div>
-            <div class="text-gray-400">Kct@gmail.com</div>
+            {% comment %} <div class="text-gray-400">+1234567890</div>
+            <div class="text-gray-400">Kct@gmail.com</div> {% endcomment %}
           </div>
 
           <div class="grid grid-cols-2 mr-4 gap-6 text-lg ">
@@ -25,11 +25,13 @@
                   <p> <a class="nav-link active text-gray-600 font-semibold" href="{% url 'Add_event' %}">Da Portal</a></p>
                 {% endif %}
             {% endfor %}
+            {% if user.is_authenticated%}
             <div class="flex-none">
               <a class=" text-md text-gray-500 font-semibold  mr-4" href="{% url 'logout' %}">
                 Logout
               </a>
             </div>
+            {% endif %}
       </div>
     </div>
   <!-- End of the navbar -->

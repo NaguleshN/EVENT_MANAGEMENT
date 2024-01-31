@@ -12,8 +12,8 @@
       <div class="flex justify-between">
           <div class="ml-4 grid grid-cols-3 gap-6 text-lg">
             <div class="font-semibold text-gray-600">Event Management</div>
-            <div class="text-gray-400">+1234567890</div>
-            <div class="text-gray-400">Kct@gmail.com</div>
+            {% comment %} <div class="text-gray-400">+1234567890</div>
+            <div class="text-gray-400">Kct@gmail.com</div> {% endcomment %}
           </div>
 
           <div class="grid grid-cols-2 mr-4 gap-6 text-lg ">
@@ -77,7 +77,7 @@
           </div>
         </div>
         
-        <div class="grid grid-cols-2 bg-gray-100 rounded-b-lg">
+        <div class="grid grid-cols-1 bg-gray-100 rounded-b-lg">
             <div class="py-8 px-5">
               <p class="text-lg text-gray-800 mb-6">Instructions : <span class="text-gray-500">{{event.instruction}}</span></p>
               <p class=" text-lg text-gray-800  mb-2 ">  Mode  : <span class="text-gray-500">{{event.mode}} </span></p><br>

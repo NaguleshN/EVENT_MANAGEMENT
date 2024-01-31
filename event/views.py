@@ -17,8 +17,7 @@ def login(request):
       if user is not None:
           auth.login(request,user)
           return redirect('index')
-      else:
-          return redirect('login')
+      
   return render(request, 'credential/login.html')
 
 @login_required(login_url='login')
@@ -54,11 +53,11 @@ def event_description(request,no):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect("/")
+    return redirect("index")
 
 
 
-@login_required
+@login_required(login_url='login')
 def index(request):
    events=AdminView.objects.all()
    return render(request, 'core/index.html', {'events': events, })
